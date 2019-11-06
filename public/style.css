@@ -1,0 +1,16 @@
+.map {
+    display: grid;
+    grid-template: repeat(10, 50px) / repeat(10, 50px);
+}
+
+.tile {
+    border:1px solid grey;
+    background-color: green;
+}
+
+.unit {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: darkblue;
+}
