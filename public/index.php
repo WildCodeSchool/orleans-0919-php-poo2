@@ -1,17 +1,35 @@
 <?php
 
+use App\Soldier;
+use App\Worker;
+use App\Army;
+
 require '../vendor/autoload.php';
 
-$legolas = new \App\Elf();
-echo $legolas->getSpeed();
-$aragorn = new \App\Soldier();
-echo $aragorn->getSpeed();
+$worker = new Worker();
+echo $worker->say();
 
-$legolas->walk('left');
-$legolas->walk('left');
-$legolas->walk('left');
-$legolas->walk('right');
-$legolas->walk('right');
-$legolas->walk('left');
-$legolas->walk('bottom');
-echo $legolas;
+$elf = new \App\Elf();
+$soldier = new Soldier();
+echo $soldier->say();
+
+try {
+    $worker->walk('right');
+    $worker->walk('bottom');
+} catch (LogicException $logicException) {
+    echo $logicException->getMessage();
+}
+
+echo $soldier->attack();
+echo $worker->work();
+?>
+<hr/>
+<?php
+$army = new Army();
+$army->join($soldier);
+$army->join($elf);
+
+foreach ($army->getSoldiers() as $soldierUnit) {
+    echo $soldierUnit->say();
+    echo $soldierUnit->attack();
+}

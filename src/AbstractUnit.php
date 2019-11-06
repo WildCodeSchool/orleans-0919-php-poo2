@@ -4,7 +4,9 @@
 namespace App;
 
 
-class Unit
+use LogicException;
+
+abstract class AbstractUnit
 {
     const AUTHORIZED_DIRECTIONS = [
         'right'  => [1, 0],
@@ -15,6 +17,8 @@ class Unit
     protected $health = 100;
     protected $position = [0, 0];
     protected $speed = 1;
+
+    abstract function say() :string;
 
     public function walk(string $direction)
     {
@@ -63,9 +67,10 @@ class Unit
     public
     function setPosition(array $position): void
     {
-        if ($position[0] >= 0 && $position[1] >= 0) {
-            $this->position = $position;
+        if ($position[0] < 0 || $position[1] < 0) {
+            throw new \LogicException('Out of map');
         }
+        $this->position = $position;
     }
 
     /**
